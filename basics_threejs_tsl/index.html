@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!-- p5.js for web editor compatibility (not used by this sketch) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/p5.js"></script>
+    <script>function setup() { noCanvas(); }</script>
+
+    <!--
+      Import map: tells the browser where to find libraries when we write
+      "import ... from 'three'" in our module script. This replaces the old
+      approach of loading libraries via <script> tags into global variables.
+
+      We point 'three' at the WebGPU build, which includes the TSL
+      (Three.js Shading Language) node system. This build falls back to
+      WebGL2 automatically if your browser doesn't support WebGPU yet.
+    -->
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.170.0/build/three.webgpu.js",
+        "three/webgpu": "https://unpkg.com/three@0.170.0/build/three.webgpu.js",
+        "three/tsl": "https://unpkg.com/three@0.170.0/build/three.webgpu.js",
+        "three/addons/": "https://unpkg.com/three@0.170.0/examples/jsm/"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <!-- The canvas element that Three.js will render into -->
+    <canvas id="canvas"></canvas>
+
+    <!--
+      type="module" makes this an ES module script. Modules:
+      - can use 'import' statements
+      - are deferred automatically (run after the DOM is ready)
+      - run in strict mode
+    -->
+    <script type="module" src="sketch.js"></script>
+  </body>
+</html>
