@@ -2,8 +2,9 @@
 
 ## Examples
 
-- [Three.js Basics](https://editor.p5js.org/lukapiskorec/sketches/Zdva-QFeY) — Basic Three.js setup running inside the p5.js web editor, covering scene, camera, renderer, and simple mesh creation.
+- [Three.js Basics](https://editor.p5js.org/lukapiskorec/sketches/Zdva-QFeY) — Basic Three.js setup running inside the p5.js web editor, covering scene, camera, renderer, and simple mesh creation. Made to be extended with TSL functions (Threejs Shader Language).
 
+- [Three.js Perlin noise](https://editor.p5js.org/lukapiskorec/sketches/i-Y7Zgxat) — Icosahedron geometry with Perlin noise displacement map, implemented in Three.js with TSL.
 
 ## References
 
