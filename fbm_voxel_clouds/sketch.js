@@ -172,9 +172,17 @@ scene.add( mesh );
 // ─── Render Loop ──────────────────────────────────────────────
 
 
+  
+let time = Date.now();
+
 renderer.setAnimationLoop( () => {
 
+  const currentTime = Date.now();
+  const deltaTime = currentTime - time;
+  time = currentTime;
+  
   renderer.render( scene, camera );
+  mesh.rotateY( 0.0001 * deltaTime );
 
 } );
 

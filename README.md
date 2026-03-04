@@ -12,6 +12,8 @@
 
 - [FMB voxel cloud](https://editor.p5js.org/lukapiskorec/sketches/zEOMeBurb) — 3D box grid with FBM (Fractal Brownian Motion) and Ridged noise threshold culling, implemented in Three.js with CPU noise versions and instanced meshes.
 
+- [Random boxes](https://editor.p5js.org/lukapiskorec/sketches/GeJFDEqF9) — creates multiple box geometries at random locations, implemented in Three.js.
+
 
 ## References
 
