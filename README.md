@@ -10,6 +10,7 @@
 
 - [FMB + Ridged noise heightmap](https://editor.p5js.org/lukapiskorec/sketches/epPXzZ4zZ) — square plane geometry with FBM (Fractal Brownian Motion) and Ridged noise displacement maps, implemented in Three.js with TSL.
 
+- [FMB voxel cloud](https://editor.p5js.org/lukapiskorec/sketches/zEOMeBurb) — 3D box grid with FBM (Fractal Brownian Motion) and Ridged noise threshold culling, implemented in Three.js with CPU noise versions and instanced meshes.
 
 
 ## References
