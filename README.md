@@ -8,6 +8,9 @@
 
 - [Perlin noise heightmap](https://editor.p5js.org/lukapiskorec/sketches/WQ2yIk_qA) — square plane geometry with Perlin noise displacement map and gradient coloring, implemented in Three.js with TSL.
 
+- [FMB + Ridged noise heightmap](https://editor.p5js.org/lukapiskorec/sketches/epPXzZ4zZ) — square plane geometry with FBM (Fractal Brownian Motion) and Ridged noise displacement maps, implemented in Three.js with TSL.
+
+
 
 ## References
 
