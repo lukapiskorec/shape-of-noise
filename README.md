@@ -16,6 +16,8 @@
 
 - [FMB voxel cloud - sphere](https://editor.p5js.org/lukapiskorec/sketches/Z-nD58RXR) — 3D box sphere with FBM (Fractal Brownian Motion) and Ridged noise threshold culling, implemented in Three.js with CPU noise versions and instanced meshes.
 
+- [FMB + Ridged noise planets](https://editor.p5js.org/lukapiskorec/sketches/mv2ODcvBe) — two overlaping icosahedron planet geometries with FBM and Ridged noise displacement map, implemented in Three.js with TSL.
+
 
 ## References
 
