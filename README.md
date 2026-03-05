@@ -19,6 +19,12 @@
 - [FMB + Ridged noise planets](https://editor.p5js.org/lukapiskorec/sketches/mv2ODcvBe) — two overlaping icosahedron planet geometries with FBM and Ridged noise displacement map, implemented in Three.js with TSL.
 
 
+## Student WIPs
+
+- [Maxime + Aegnus 01](https://editor.p5js.org/lukapiskorec/sketches/S9eXO6v5T)
+
+
+
 ## References
 
 [10 Noise Functions For Three.js TSL Shaders](https://threejsroadmap.com/blog/10-noise-functions-for-threejs-tsl-shaders)
