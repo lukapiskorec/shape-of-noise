@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> — </title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet" />
+  
+
+    <!-- p5.js for web editor compatibility (not used by this sketch) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/p5.js"></script>
+    <script>function setup() { noCanvas(); }</script>
+
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.170.0/build/three.webgpu.js",
+        "three/webgpu": "https://unpkg.com/three@0.170.0/build/three.webgpu.js",
+        "three/tsl": "https://unpkg.com/three@0.170.0/build/three.webgpu.js",
+        "three/addons/": "https://unpkg.com/three@0.170.0/examples/jsm/"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script type="module" src="noise.js"></script>
+    <script type="module" src="sketch.js"></script>
+    <script>document.addEventListener('keydown', e => { if (e.key === 'f') document.documentElement.requestFullscreen(); });</script>
+  <div id="vignette" aria-hidden="true"></div>
+
+  <!-- ══ HEADER ══════════════════════════════════════════════ -->
+  <header id="header">
+    <div class="header-left">
+      <div class="brand">
+        <span class="brand-ornament">✦</span>
+        <div class="brand-text">
+          <h1 class="brand-title">Procedural fantasy map generator</h1>
+          <p class="brand-sub">Cartographe par génération procédurale</p>
+        </div>
+        <span class="brand-ornament">✦</span>
+      </div>
+    </div>
+    <div class="header-center">
+      <div class="status-wrap">
+        <span class="status-gem" id="statusGem"></span>
+        <span class="status-text" id="statusText">En attente</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <span class="seed-label" id="seedLabel">—</span>
+    </div>
+  </header>
+
+  <!-- ══ ÉTAPES ══════════════════════════════════════════════ -->
+  <nav id="steps-nav" aria-label="Étapes de génération">
+    <button class="step-btn" data-step="1" title="Grille Terre / Eau">
+      <span class="step-number">I</span>
+      <span class="step-name">Grille</span>
+    </button>
+    <span class="step-divider" aria-hidden="true">◆</span>
+    <button class="step-btn" data-step="2" title="Carte d'élévation">
+      <span class="step-number">II</span>
+      <span class="step-name">Relief</span>
+    </button>
+    <span class="step-divider" aria-hidden="true">◆</span>
+    <button class="step-btn" data-step="3" title="Colorisation 2D">
+      <span class="step-number">III</span>
+      <span class="step-name">Couleur</span>
+    </button>
+    <span class="step-divider" aria-hidden="true">◆</span>
+    <button class="step-btn" data-step="4" title="Monde en relief">
+      <span class="step-number">IV</span>
+      <span class="step-name">Monde</span>
+    </button>
+  </nav>
+
+  <!-- ══ PANNEAU GAUCHE ══════════════════════════════════════ -->
+  <aside id="panel-left" class="panel">
+    <div class="panel-header">
+      <span class="panel-header-line"></span>
+      <h2 class="panel-title">Vision</h2>
+      <span class="panel-header-line"></span>
+    </div>
+
+    <section class="ctrl-section">
+      <p class="ctrl-section-title">Perspective</p>
+      <button class="action-btn" id="btn-toggle-3d">
+        <span class="action-icon">◈</span>
+        <span>Basculer 2D / 3D</span>
+      </button>
+    </section>
+
+    <section class="ctrl-section">
+      <p class="ctrl-section-title">Point de vue</p>
+      <button class="action-btn" id="btn-zoom-in">
+        <span class="action-icon">+</span>
+        <span>Rapprocher</span>
+      </button>
+      <button class="action-btn" id="btn-zoom-out">
+        <span class="action-icon">−</span>
+        <span>Éloigner</span>
+      </button>
+      <button class="action-btn" id="btn-zoom-reset">
+        <span class="action-icon">↺</span>
+        <span>Vue initiale</span>
+      </button>
+    </section>
+
+    <div class="panel-divider" aria-hidden="true">
+      <svg viewBox="0 0 100 6" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 3 Q25 0.5 50 3 Q75 5.5 100 3" stroke="currentColor" stroke-width="0.8" fill="none"/>
+        <circle cx="50" cy="3" r="1.5" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <section class="ctrl-section">
+      <button class="action-btn action-btn--primary" id="btn-new-map">
+        <span class="action-icon">✧</span>
+        <span>Nouvelle Carte</span>
+      </button>
+    </section>
+  </aside>
+
+  <!-- ══ PANNEAU DROIT ════════════════════════════════════════ -->
+  <aside id="panel-right" class="panel">
+    <div class="panel-header">
+      <span class="panel-header-line"></span>
+      <h2 class="panel-title">Façonnage</h2>
+      <span class="panel-header-line"></span>
+    </div>
+
+    <section class="ctrl-section">
+      <p class="ctrl-section-title">Dimensions</p>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label" for="inp-w">Largeur</label>
+          <input class="field-input" type="number" id="inp-w" min="256" max="2048" step="64" value="1400" />
+        </div>
+        <span class="field-sep">×</span>
+        <div class="field-group">
+          <label class="field-label" for="inp-h">Hauteur</label>
+          <input class="field-input" type="number" id="inp-h" min="256" max="2048" step="64" value="1200" />
+        </div>
+      </div>
+    </section>
+
+    <section class="ctrl-section">
+      <p class="ctrl-section-title">Graine du monde</p>
+      <div class="field-group field-group--full">
+        <input class="field-input" type="number" id="inp-seed" min="0" max="999999" placeholder="Aléatoire" />
+      </div>
+    </section>
+
+    <div class="panel-divider" aria-hidden="true">
+      <svg viewBox="0 0 100 6" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 3 Q25 5.5 50 3 Q75 0.5 100 3" stroke="currentColor" stroke-width="0.8" fill="none"/>
+        <circle cx="50" cy="3" r="1.5" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <section class="ctrl-section">
+      <p class="ctrl-section-title">Paramètres</p>
+
+      <div class="slider-row">
+        <label class="slider-label" for="sl-water">Étendue des mers</label>
+        <span class="slider-val" id="val-water">51.5%</span>
+        <input class="slider" type="range" id="sl-water" min="20" max="80" step="0.5" value="51.5" />
+      </div>
+
+      <div class="slider-row">
+        <label class="slider-label" for="sl-scale">Taille des terres</label>
+        <span class="slider-val" id="val-scale">300</span>
+        <input class="slider" type="range" id="sl-scale" min="100" max="800" step="10" value="300" />
+      </div>
+
+      <div class="slider-row">
+        <label class="slider-label" for="sl-octaves">Complexité</label>
+        <span class="slider-val" id="val-octaves">6</span>
+        <input class="slider" type="range" id="sl-octaves" min="1" max="10" step="1" value="6" />
+      </div>
+
+      <div class="slider-row">
+        <label class="slider-label" for="sl-baseheight">Altitude dominante</label>
+        <span class="slider-val" id="val-baseheight">0.40</span>
+        <input class="slider" type="range" id="sl-baseheight" min="0.1" max="0.9" step="0.05" value="0.4" />
+      </div>
+
+      <div class="slider-row">
+        <label class="slider-label" for="sl-waterdist">Dégradé côtier</label>
+        <span class="slider-val" id="val-waterdist">40</span>
+        <input class="slider" type="range" id="sl-waterdist" min="5" max="100" step="5" value="40" />
+      </div>
+
+      <div class="slider-row">
+        <label class="slider-label" for="sl-landscale">Amplitude des monts</label>
+        <span class="slider-val" id="val-landscale">300</span>
+        <input class="slider" type="range" id="sl-landscale" min="50" max="600" step="10" value="300" />
+      </div>
+    </section>
+
+    <button class="action-btn action-btn--cast" id="btn-apply">
+      <span class="action-icon">⬡</span>
+      <span>Tisser le Monde</span>
+    </button>
+  </aside>
+
+  <!-- ══ FOOTER ════════════════════════════════════════════════ -->
+  <footer id="footer">
+    <div class="footer-stats">
+      <span class="fstat"><span class="fl">Terre</span><span class="fv" id="stat-land">—</span></span>
+      <span class="fsep">·</span>
+      <span class="fstat"><span class="fl">Mer</span><span class="fv" id="stat-water">—</span></span>
+      <span class="fsep">·</span>
+      <span class="fstat"><span class="fl">Élévation</span><span class="fv" id="stat-elev">—</span></span>
+      <span class="fsep">·</span>
+      <span class="fstat"><span class="fl">Taille</span><span class="fv" id="stat-size">—</span></span>
+      <span class="fsep">·</span>
+      <span class="fstat"><span class="fl">Étape</span><span class="fv" id="stat-step">—</span></span>
+    </div>
+    <p class="footer-hint" id="footer-hint">Glisser pour orbiter · Molette pour zoomer · Cliquer sur les étapes pour naviguer</p>
+  </footer>
+
+  <!-- ══ LOADING ════════════════════════════════════════════════ -->
+  <div id="loading">
+    <div class="loading-inner">
+      <div class="loading-emblem" aria-hidden="true">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <!-- Outer ring -->
+          <circle cx="50" cy="50" r="44" stroke="#8b7355" stroke-width="0.6" fill="none" stroke-dasharray="3 4" opacity="0.5"/>
+          <!-- Mid ring -->
+          <circle cx="50" cy="50" r="33" stroke="#a89060" stroke-width="0.5" fill="none" opacity="0.35"/>
+          <!-- Inner ring -->
+          <circle cx="50" cy="50" r="20" stroke="#c9a84c" stroke-width="0.6" fill="none" opacity="0.45"/>
+          <!-- Cross hairs -->
+          <line x1="50" y1="6" x2="50" y2="94" stroke="#4a6040" stroke-width="0.3" opacity="0.3"/>
+          <line x1="6" y1="50" x2="94" y2="50" stroke="#4a6040" stroke-width="0.3" opacity="0.3"/>
+          <!-- Diamond center -->
+          <polygon points="50,41 59,50 50,59 41,50" fill="none" stroke="#c9a84c" stroke-width="0.8" opacity="0.8"/>
+          <circle cx="50" cy="50" r="2.5" fill="#c9a84c" opacity="0.9"/>
+          <!-- Cardinal marks -->
+          <circle cx="50" cy="7"  r="1.5" fill="#a89060" opacity="0.6"/>
+          <circle cx="93" cy="50" r="1.5" fill="#a89060" opacity="0.6"/>
+          <circle cx="50" cy="93" r="1.5" fill="#a89060" opacity="0.6"/>
+          <circle cx="7"  cy="50" r="1.5" fill="#a89060" opacity="0.6"/>
+        </svg>
+      </div>
+      <h2 class="loading-title">Tissage en cours…</h2>
+      <p class="loading-sub" id="loading-sub">Éveil du chaos primordial</p>
+    </div>
+  </div>
+
+  <script>
+    // Sliders — valeur live
+    [
+      ['sl-water',      'val-water',      v => parseFloat(v).toFixed(1) + '%'],
+      ['sl-scale',      'val-scale',      v => v],
+      ['sl-octaves',    'val-octaves',    v => v],
+      ['sl-baseheight', 'val-baseheight', v => parseFloat(v).toFixed(2)],
+      ['sl-waterdist',  'val-waterdist',  v => v],
+      ['sl-landscale',  'val-landscale',  v => v],
+    ].forEach(([id, vid, fmt]) => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('input', () => {
+        const vEl = document.getElementById(vid);
+        if (vEl) vEl.textContent = fmt(el.value);
+      });
+    });
+  </script>
+
+  <script type="module" src="map.js"></script>
+</body>
+</html>

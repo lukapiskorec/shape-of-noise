@@ -39,13 +39,14 @@
 
 ## Final student projects
 
-- [Maxime + Aegnus]()
+- [Maxime + Aegnus](https://editor.p5js.org/lukapiskorec/full/V5-libfua)
 
 - [Ivan + Max](https://editor.p5js.org/lukapiskorec/full/v54n_IsQj)
 
 - [Romain + Sofia](https://editor.p5js.org/lukapiskorec/full/XloNWA1Gx)
 
-- [Nathan + Amelia]()
+- [Nathan + Amelia - part 1](https://editor.p5js.org/lukapiskorec/full/Uumyaf9eq)
+- [Nathan + Amelia - part 2](https://editor.p5js.org/lukapiskorec/full/Of9U0_Hxd)
 
 - [Rodolphe](https://editor.p5js.org/lukapiskorec/full/QaZw4kSjA)
 
