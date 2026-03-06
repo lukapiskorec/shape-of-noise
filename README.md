@@ -35,3 +35,20 @@
 [10 Noise Functions For Three.js TSL Shaders](https://threejsroadmap.com/blog/10-noise-functions-for-threejs-tsl-shaders)
 
 [Fractal Brownian Motion](https://thebookofshaders.com/13/)
+
+
+## Final student projects
+
+- [Maxime + Aegnus]()
+
+- [Ivan + Max](https://editor.p5js.org/lukapiskorec/full/v54n_IsQj)
+
+- [Romain + Sofia](https://editor.p5js.org/lukapiskorec/full/XloNWA1Gx)
+
+- [Nathan + Amelia]()
+
+- [Rodolphe](https://editor.p5js.org/lukapiskorec/full/QaZw4kSjA)
+
+- [Liam + Achille](https://editor.p5js.org/lukapiskorec/full/hKjogGt2w)
+
+- [Alexandre + Tayeba + Xinyang](https://editor.p5js.org/lukapiskorec/full/cRuKWvZ8-) 
