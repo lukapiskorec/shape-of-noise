@@ -98,6 +98,12 @@ camera.position.set( 0, 8, 8 );
 const controls = new OrbitControls( camera, renderer.domElement );
 controls.update();
 
+window.addEventListener( 'resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize( window.innerWidth, window.innerHeight );
+} );
+
 // ambient light — uniform illumination, no directional shading
 scene.add( new THREE.AmbientLight( 0xffffff, 1.0 ) );
 

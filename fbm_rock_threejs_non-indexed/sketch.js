@@ -35,6 +35,12 @@ const controls = new THREE.OrbitControls(camera, renderer.domElement);
 camera.position.z = 120;
 controls.update();
 
+window.addEventListener( 'resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize( window.innerWidth, window.innerHeight );
+} );
+
 // define geometry
 
 const sphereRadius = 10;

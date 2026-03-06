@@ -51,6 +51,12 @@ camera.position.z = 5;
 const controls = new OrbitControls( camera, renderer.domElement );
 controls.update();
 
+window.addEventListener( 'resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize( window.innerWidth, window.innerHeight );
+} );
+
 
 // ─── Boxes ────────────────────────────────────────────────────
 

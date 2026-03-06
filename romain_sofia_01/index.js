@@ -94,6 +94,12 @@ camera.lookAt( 0, 2.5, 0 );
 const controls = new OrbitControls( camera, renderer.domElement );
 controls.update();
 
+window.addEventListener( 'resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize( window.innerWidth, window.innerHeight );
+} );
+
 
 // faut ajouter une lumière pour voir le relief
 const light = new THREE.DirectionalLight(0xffffff, 1);

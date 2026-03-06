@@ -66,6 +66,12 @@ controls.dampingFactor = 0.05;
 console.log('OrbitControls attached');
 console.groupEnd();
 
+window.addEventListener( 'resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize( window.innerWidth, window.innerHeight );
+} );
+
 // --- Camera fit ---
 function fitCamera(camera, width, height) {
   const fovRad    = camera.fov * (Math.PI / 180);
