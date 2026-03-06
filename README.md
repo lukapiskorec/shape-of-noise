@@ -1,6 +1,7 @@
 # Shape of Noise
-
 ### *Nature-inspired procedural modeling with three.js*
+
+![Shape of Noise](media/perlin_and_fbm_displacement_gif_03.gif)
 
 Shape of Noise workshop introduced students to procedural modeling and animation in the browser using JavaScript and three.js, with a central focus on noise as a generative principle. Participants explored algorithms such as Perlin noise, Simplex noise, and related stochastic methods that are widely used to produce natural-looking variation and complexity in digital systems.
 
