@@ -38,18 +38,6 @@ The goal of the workshop was for each participant to develop an animated or inte
 - [Fractal Brownian Motion](https://thebookofshaders.com/13/)
 
 
-
-## Student WIPs
-
-- [Maxime + Aegnus 01](https://editor.p5js.org/lukapiskorec/full/S9eXO6v5T)
-
-- [Ivan + Max 01](https://editor.p5js.org/lukapiskorec/full/R4N85RqUW)
-
-- [Romain + Sofia 01](https://editor.p5js.org/lukapiskorec/full/tlW3Oor82)
-
-- [Nathan + Amelia 01](https://editor.p5js.org/lukapiskorec/full/gqz1EDTv2)
-
-
 ## Final student projects
 
 - [Maxime + Aegnus](https://editor.p5js.org/lukapiskorec/full/V5-libfua)
